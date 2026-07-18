@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NutriCore — Plaquette de présentation</title>
+<title>Dieteye</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -14,6 +14,7 @@
     --sage-xs: #c8dbc5;
     --cream:   #f7f3ec;
     --warm:    #e8dfd0;
+    --sand:    #d4c4a8;
     --clay:    #b07c5a;
     --ink:     #1c2318;
     --ink-50:  rgba(28,35,24,0.5);
@@ -28,6 +29,148 @@
     font-weight: 300;
     line-height: 1.6;
     overflow-x: hidden;
+  }
+
+  /* ══ LANGUAGE SWITCHER ══ */
+  .lang-switcher {
+    position: fixed;
+    top: 20px; right: 24px;
+    z-index: 1000;
+    display: flex;
+    background: rgba(28,35,24,.7);
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 100px;
+    padding: 4px;
+    backdrop-filter: blur(12px);
+    gap: 2px;
+  }
+  .lang-btn {
+    background: none; border: none; cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    font-size: .7rem; font-weight: 500;
+    letter-spacing: .1em; text-transform: uppercase;
+    color: rgba(255,255,255,.45);
+    padding: 6px 14px; border-radius: 100px;
+    transition: all .25s ease;
+  }
+  .lang-btn.active {
+    background: var(--sage);
+    color: white;
+  }
+  .lang-btn:hover:not(.active) { color: rgba(255,255,255,.8); }
+
+  /* ══ VIEW SWITCHER (B2C / B2B) ══ */
+  .view-switcher {
+    position: fixed;
+    top: 20px; left: 24px;
+    z-index: 1000;
+    display: flex;
+    background: rgba(28,35,24,.7);
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 100px;
+    padding: 4px;
+    backdrop-filter: blur(12px);
+    gap: 2px;
+  }
+  .view-btn {
+    background: none; border: none; cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    font-size: .7rem; font-weight: 500;
+    letter-spacing: .1em; text-transform: uppercase;
+    color: rgba(255,255,255,.45);
+    padding: 6px 16px; border-radius: 100px;
+    transition: all .25s ease;
+  }
+  .view-btn.active { background: var(--clay); color: white; }
+  .view-btn:hover:not(.active) { color: rgba(255,255,255,.8); }
+
+  .view-b2b { display: none; }
+
+  /* ══ B2B SPECIFIC ══ */
+  .sec-b2b-hero {
+    min-height: 100vh; background: var(--ink);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; padding: 80px 40px; position: relative; overflow: hidden;
+  }
+  .sec-b2b-hero .hero-title { font-size: clamp(2.6rem,4.5vw,4.6rem); }
+  .sec-b2b-hero .hero-sub { max-width: 620px; margin-left:auto; margin-right:auto; text-align:center; }
+
+  .b2b-stats-row {
+    display:flex; gap:48px; justify-content:center; margin-top:56px; flex-wrap:wrap; position:relative; z-index:2;
+  }
+  .b2b-stat { text-align:center; }
+  .b2b-stat-num { font-family:'Cormorant Garamond',serif; font-size:2.4rem; color:var(--gold); font-weight:300; }
+  .b2b-stat-label { font-size:.7rem; color:rgba(255,255,255,.5); letter-spacing:.05em; margin-top:4px; }
+
+  .sec-b2b-partners { background:var(--cream); padding:120px 80px; }
+  .b2b-partners-head { text-align:center; margin-bottom:64px; }
+  .b2b-partners-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:20px; }
+  .b2b-partner-card {
+    background:var(--white); border:1px solid var(--warm); border-radius:20px;
+    padding:30px 24px; text-align:center; transition:transform .3s,box-shadow .3s;
+  }
+  .b2b-partner-card:hover { transform:translateY(-4px); box-shadow:0 16px 36px rgba(28,35,24,.07); }
+  .b2b-partner-icon { font-size:2rem; margin-bottom:14px; }
+  .b2b-partner-title { font-family:'Cormorant Garamond',serif; font-size:1.15rem; color:var(--ink); margin-bottom:8px; }
+  .b2b-partner-desc { font-size:.78rem; color:var(--ink-50); line-height:1.65; }
+
+  .sec-b2b-model { background:var(--ink); padding:120px 80px; position:relative; overflow:hidden; }
+  .sec-b2b-model::before {
+    content:''; position:absolute; inset:0; pointer-events:none;
+    background:radial-gradient(ellipse 70% 60% at 80% 20%,rgba(176,124,90,.14) 0%,transparent 70%),
+               radial-gradient(ellipse 50% 50% at 10% 80%,rgba(201,168,76,.07) 0%,transparent 60%);
+  }
+  .b2b-model-head { text-align:center; margin-bottom:72px; position:relative; z-index:1; }
+  .b2b-model-head .s-label { color:var(--clay); }
+  .b2b-model-head .s-title { color:var(--white); }
+  .b2b-model-head .s-title em { color:var(--gold); }
+  .b2b-model-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:22px; position:relative; z-index:1; }
+  .b2b-model-card {
+    background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.07);
+    border-radius:22px; padding:36px 30px; transition:all .3s;
+  }
+  .b2b-model-card:hover { border-color:rgba(176,124,90,.35); transform:translateY(-5px); }
+  .b2b-model-num {
+    font-family:'Cormorant Garamond',serif; font-size:2.2rem; color:var(--clay); font-weight:300; margin-bottom:16px;
+  }
+  .b2b-model-title { font-family:'Cormorant Garamond',serif; font-size:1.3rem; color:var(--white); margin-bottom:12px; }
+  .b2b-model-desc { font-size:.82rem; color:rgba(255,255,255,.5); line-height:1.75; }
+
+  .sec-b2b-features { background:var(--cream); padding:120px 80px; }
+  .b2b-feat-head { text-align:center; margin-bottom:72px; }
+  .b2b-feat-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:22px; }
+  .b2b-feat-row {
+    display:flex; gap:20px; align-items:flex-start;
+    background:var(--white); border:1px solid var(--warm); border-radius:20px; padding:28px;
+    transition:transform .3s,box-shadow .3s;
+  }
+  .b2b-feat-row:hover { transform:translateY(-3px); box-shadow:0 14px 32px rgba(28,35,24,.06); }
+  .b2b-feat-icon {
+    width:44px; height:44px; flex-shrink:0; border-radius:12px;
+    background:rgba(176,124,90,.12); display:flex; align-items:center; justify-content:center; font-size:1.2rem;
+  }
+  .b2b-feat-title { font-family:'Cormorant Garamond',serif; font-size:1.1rem; color:var(--ink); margin-bottom:6px; }
+  .b2b-feat-desc { font-size:.8rem; color:var(--ink-50); line-height:1.65; }
+
+  .sec-b2b-end {
+    background:linear-gradient(135deg,var(--clay),#7a4e33); padding:100px 80px; text-align:center;
+    position:relative; overflow:hidden;
+  }
+  .sec-b2b-end .end-label { color:#f0ddd0; }
+  .sec-b2b-end .end-title em { color:var(--gold); }
+
+  @media (max-width:960px) {
+    .b2b-partners-grid { grid-template-columns:1fr 1fr; }
+    .b2b-model-grid { grid-template-columns:1fr; }
+    .b2b-feat-grid { grid-template-columns:1fr; }
+    .sec-b2b-partners,.sec-b2b-model,.sec-b2b-features,.sec-b2b-end { padding:80px 48px; }
+  }
+  @media (max-width:600px) {
+    .b2b-partners-grid { grid-template-columns:1fr; }
+    .b2b-stats-row { gap:28px; }
+    .b2b-stat-num { font-size:1.9rem; }
+    .sec-b2b-partners,.sec-b2b-model,.sec-b2b-features,.sec-b2b-end { padding:60px 20px; }
+    .view-switcher { top: 12px; left: 12px; }
   }
 
   /* ══ HERO ══ */
@@ -72,7 +215,6 @@
     font-size:1rem;color:rgba(255,255,255,.5);
     max-width:440px;margin-top:24px;line-height:1.85;
   }
-
   .hero-left > * { animation:fadeUp .8s ease both; }
   .badge      { animation-delay:.1s; }
   .hero-title { animation-delay:.25s; }
@@ -85,26 +227,15 @@
     animation:fadeUp .9s ease .4s both;
   }
   .phone {
-    width:260px;
-    background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);
+    width:260px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);
     border-radius:36px;padding:20px 16px;
     box-shadow:0 40px 80px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.1);
   }
-  .phone-notch {
-    width:80px;height:8px;background:rgba(255,255,255,.15);
-    border-radius:100px;margin:0 auto 16px;
-  }
-  .phone-screen {
-    background:linear-gradient(160deg,#1a2e17,#0f1a0c);
-    border-radius:24px;padding:20px 16px;min-height:460px;
-  }
+  .phone-notch { width:80px;height:8px;background:rgba(255,255,255,.15);border-radius:100px;margin:0 auto 16px; }
+  .phone-screen { background:linear-gradient(160deg,#1a2e17,#0f1a0c);border-radius:24px;padding:20px 16px;min-height:460px; }
   .ph-label { font-size:.5rem;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px; }
   .ph-title { font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:white;font-weight:300;margin-bottom:18px; }
-  .score-box {
-    display:flex;align-items:center;gap:12px;
-    background:rgba(74,103,65,.2);border:1px solid rgba(122,154,114,.2);
-    border-radius:14px;padding:12px;margin-bottom:14px;
-  }
+  .score-box { display:flex;align-items:center;gap:12px;background:rgba(74,103,65,.2);border:1px solid rgba(122,154,114,.2);border-radius:14px;padding:12px;margin-bottom:14px; }
   .score-val { font-size:.95rem;color:white;font-weight:500; }
   .score-sub { font-size:.5rem;color:var(--sage-lt);margin-top:2px; }
   .cbar { margin-bottom:7px; }
@@ -121,104 +252,55 @@
   .menu-tag  { font-size:.48rem;color:var(--sage-lt); }
   .menu-kcal { font-size:.5rem;color:rgba(255,255,255,.28);margin-left:auto;flex-shrink:0; }
 
-  /* ══ SECTIONS COMMUNES ══ */
+  /* ══ SECTIONS ══ */
   .s-label { font-size:.7rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--sage);margin-bottom:18px; }
   .s-title { font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,3.5vw,3.6rem);font-weight:300;line-height:1.1;color:var(--ink);margin-bottom:20px; }
   .s-title em { font-style:italic;color:var(--clay); }
   .s-body { font-size:.95rem;color:var(--ink-50);line-height:1.85;max-width:480px; }
 
-  /* ══ CONSTAT ══ */
-  .sec-constat {
-    background:var(--cream);padding:120px 80px;
-    display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;
-  }
+  .sec-constat { background:var(--cream);padding:120px 80px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center; }
   .stat-grid { display:grid;grid-template-columns:1fr 1fr;gap:20px; }
-  .stat-card {
-    background:var(--white);border:1px solid var(--warm);
-    border-radius:20px;padding:28px;
-    transition:transform .3s,box-shadow .3s;
-  }
+  .stat-card { background:var(--white);border:1px solid var(--warm);border-radius:20px;padding:28px;transition:transform .3s,box-shadow .3s; }
   .stat-card:hover { transform:translateY(-4px);box-shadow:0 16px 36px rgba(28,35,24,.07); }
   .stat-num { font-family:'Cormorant Garamond',serif;font-size:2.8rem;font-weight:300;line-height:1;color:var(--sage);margin-bottom:8px; }
   .stat-num sup { font-size:1.4rem; }
   .stat-desc   { font-size:.78rem;color:var(--ink-50);line-height:1.6; }
   .stat-source { font-size:.63rem;color:rgba(28,35,24,.28);margin-top:6px;font-style:italic; }
 
-  /* ══ FONCTIONNALITÉS ══ */
   .sec-feat { background:var(--ink);padding:120px 80px;position:relative;overflow:hidden; }
-  .sec-feat::before {
-    content:'';position:absolute;inset:0;pointer-events:none;
-    background:radial-gradient(ellipse 70% 60% at 80% 20%,rgba(74,103,65,.14) 0%,transparent 70%),
-               radial-gradient(ellipse 50% 50% at 10% 80%,rgba(201,168,76,.07) 0%,transparent 60%);
-  }
+  .sec-feat::before { content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 70% 60% at 80% 20%,rgba(74,103,65,.14) 0%,transparent 70%),radial-gradient(ellipse 50% 50% at 10% 80%,rgba(201,168,76,.07) 0%,transparent 60%); }
   .feat-header { text-align:center;margin-bottom:72px;position:relative;z-index:1; }
   .feat-header .s-label { color:var(--sage-lt); }
   .feat-header .s-title { color:var(--white); }
   .feat-header .s-title em { color:var(--gold); }
   .feat-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:22px;position:relative;z-index:1; }
-  .feat-card {
-    background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);
-    border-radius:22px;padding:34px 30px;
-    transition:border-color .35s,transform .35s,background .35s;
-    position:relative;overflow:hidden;
-  }
-  .feat-card::before {
-    content:'';position:absolute;inset:0;
-    background:linear-gradient(135deg,rgba(74,103,65,.12),transparent 60%);
-    opacity:0;transition:opacity .35s;
-  }
+  .feat-card { background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:22px;padding:34px 30px;transition:border-color .35s,transform .35s;position:relative;overflow:hidden; }
+  .feat-card::before { content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(74,103,65,.12),transparent 60%);opacity:0;transition:opacity .35s; }
   .feat-card:hover { border-color:rgba(122,154,114,.3);transform:translateY(-5px); }
   .feat-card:hover::before { opacity:1; }
-  .feat-icon {
-    width:50px;height:50px;background:rgba(74,103,65,.25);
-    border:1px solid rgba(122,154,114,.22);border-radius:13px;
-    display:flex;align-items:center;justify-content:center;
-    font-size:1.3rem;margin-bottom:22px;transition:background .3s;
-  }
+  .feat-icon { width:50px;height:50px;background:rgba(74,103,65,.25);border:1px solid rgba(122,154,114,.22);border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;margin-bottom:22px;transition:background .3s; }
   .feat-card:hover .feat-icon { background:rgba(74,103,65,.4); }
   .feat-title { font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:400;color:var(--white);margin-bottom:10px;line-height:1.2; }
   .feat-desc  { font-size:.82rem;color:rgba(255,255,255,.48);line-height:1.75; }
-  .feat-chip  {
-    display:inline-block;margin-top:18px;font-size:.62rem;font-weight:500;
-    letter-spacing:.08em;text-transform:uppercase;
-    color:var(--sage-lt);background:rgba(122,154,114,.12);padding:3px 10px;border-radius:100px;
-  }
+  .feat-chip  { display:inline-block;margin-top:18px;font-size:.62rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--sage-lt);background:rgba(122,154,114,.12);padding:3px 10px;border-radius:100px; }
 
-  /* ══ PARCOURS ══ */
   .sec-flow { background:var(--cream);padding:120px 80px; }
   .flow-header { text-align:center;margin-bottom:80px; }
   .flow-steps { display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative; }
-  .flow-steps::before {
-    content:'';position:absolute;
-    top:35px;left:12.5%;right:12.5%;height:1px;
-    background:linear-gradient(90deg,transparent,var(--sage-xs),var(--sage-xs),transparent);
-  }
+  .flow-steps::before { content:'';position:absolute;top:35px;left:12.5%;right:12.5%;height:1px;background:linear-gradient(90deg,transparent,var(--sage-xs),var(--sage-xs),transparent); }
   .flow-step { display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 20px; }
-  .flow-num {
-    width:70px;height:70px;border-radius:50%;
-    background:var(--white);border:2px solid var(--sage-xs);
-    display:flex;align-items:center;justify-content:center;
-    font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:300;color:var(--sage);
-    margin-bottom:22px;position:relative;z-index:1;
-    box-shadow:0 6px 20px rgba(74,103,65,.1);transition:all .3s;
-  }
+  .flow-num { width:70px;height:70px;border-radius:50%;background:var(--white);border:2px solid var(--sage-xs);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:300;color:var(--sage);margin-bottom:22px;position:relative;z-index:1;box-shadow:0 6px 20px rgba(74,103,65,.1);transition:all .3s; }
   .flow-step:hover .flow-num { background:var(--sage);color:white;border-color:var(--sage);box-shadow:0 10px 28px rgba(74,103,65,.3); }
   .flow-emoji { font-size:1.3rem;margin-bottom:14px; }
   .flow-title { font-family:'Cormorant Garamond',serif;font-size:1.15rem;color:var(--ink);margin-bottom:8px; }
   .flow-desc  { font-size:.78rem;color:var(--ink-50);line-height:1.7; }
 
-  /* ══ EXEMPLE MENU ══ */
-  .sec-demo {
-    background:linear-gradient(160deg,#f0ede6,var(--cream));
-    padding:120px 80px;
-    display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;
-  }
+  .sec-demo { background:linear-gradient(160deg,#f0ede6,var(--cream));padding:120px 80px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center; }
   .demo-chips { display:flex;gap:10px;flex-wrap:wrap;margin-top:24px; }
   .chip { font-size:.72rem;font-weight:500;padding:7px 14px;border-radius:100px; }
   .chip-g { background:var(--sage-xs);color:var(--sage); }
   .chip-c { background:#fae9df;color:var(--clay); }
   .chip-o { background:#faf3e0;color:#8a6d2a; }
-
   .menu-card { background:var(--white);border-radius:28px;padding:36px;box-shadow:0 24px 56px rgba(28,35,24,.07);border:1px solid var(--warm); }
   .menu-card-head { display:flex;align-items:center;gap:14px;padding-bottom:20px;margin-bottom:24px;border-bottom:1px solid var(--warm); }
   .menu-av { width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--sage-lt),var(--sage));display:flex;align-items:center;justify-content:center;font-size:1rem; }
@@ -228,7 +310,7 @@
   .menu-day-label { font-size:.62rem;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:var(--sage);margin-bottom:12px; }
   .meal-row { display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:1px solid var(--warm); }
   .meal-row:last-child { border-bottom:none; }
-  .meal-time { font-size:.62rem;color:var(--ink-50);width:46px;flex-shrink:0;padding-top:2px; }
+  .meal-time { font-size:.62rem;color:var(--ink-50);width:50px;flex-shrink:0;padding-top:2px; }
   .meal-info { flex:1; }
   .meal-name { font-size:.82rem;font-weight:500;color:var(--ink);margin-bottom:4px; }
   .meal-pills { display:flex;gap:6px;flex-wrap:wrap; }
@@ -240,12 +322,8 @@
   .meal-note::before { content:'↑';font-weight:700; }
   .meal-kcal { font-size:.72rem;color:var(--ink-50);flex-shrink:0;font-weight:500; }
 
-  /* ══ OBJECTIFS ══ */
   .sec-goals { background:var(--ink);padding:100px 80px;position:relative;overflow:hidden; }
-  .sec-goals::before {
-    content:'';position:absolute;inset:0;pointer-events:none;
-    background:radial-gradient(ellipse 60% 80% at 50% 50%,rgba(74,103,65,.1),transparent 70%);
-  }
+  .sec-goals::before { content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 60% 80% at 50% 50%,rgba(74,103,65,.1),transparent 70%); }
   .goals-head { text-align:center;margin-bottom:60px;position:relative;z-index:1; }
   .goals-head .s-label { color:var(--sage-lt); }
   .goals-head .s-title { color:white; }
@@ -256,7 +334,6 @@
   .goal-emoji { font-size:1.4rem;display:block;margin-bottom:7px; }
   .goal-label { font-size:.68rem;color:rgba(255,255,255,.6);line-height:1.4; }
 
-  /* ══ CAS D'USAGE ══ */
   .sec-cases { background:var(--cream);padding:120px 80px; }
   .cases-head { text-align:center;margin-bottom:60px; }
   .cases-head .note { font-size:.78rem;color:var(--ink-50);margin-top:12px;font-style:italic; }
@@ -272,13 +349,8 @@
   .case-desc  { font-size:.82rem;color:var(--ink-50);line-height:1.75; }
   .case-profile { font-size:.72rem;color:var(--ink-50);margin-top:16px;font-weight:500; }
 
-  /* ══ FIN ══ */
   .sec-end { background:linear-gradient(135deg,var(--sage),#2e4a2a);padding:100px 80px;text-align:center;position:relative;overflow:hidden; }
-  .sec-end::before {
-    content:'';position:absolute;inset:0;pointer-events:none;
-    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
-    background-size:256px;
-  }
+  .sec-end::before { content:'';position:absolute;inset:0;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");background-size:256px; }
   .end-label { color:var(--sage-xs);font-size:.7rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;margin-bottom:18px;position:relative;z-index:1; }
   .end-title { font-family:'Cormorant Garamond',serif;font-size:clamp(2.4rem,4vw,4.2rem);font-weight:300;color:white;line-height:1.1;margin-bottom:20px;position:relative;z-index:1; }
   .end-title em { font-style:italic;color:var(--gold); }
@@ -286,126 +358,53 @@
   .end-contact { margin-top:36px;font-size:.95rem;color:rgba(255,255,255,.7);position:relative;z-index:1; }
   .end-contact strong { color:white; }
 
-  /* ══ FOOTER ══ */
   footer { background:var(--ink);padding:36px 80px;display:flex;align-items:center;justify-content:space-between;border-top:1px solid rgba(255,255,255,.07); }
   .footer-logo { font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:300;color:white; }
   .footer-logo span { color:var(--sage-lt); }
   .footer-copy { font-size:.7rem;color:rgba(255,255,255,.22); }
 
-  /* ══════════════════════════════
-     RESPONSIVE — TABLET (≤ 960px)
-  ══════════════════════════════ */
+  /* ══ RESPONSIVE ══ */
   @media (max-width:960px) {
-    /* Grilles 2 colonnes → 1 colonne */
-    .hero,
-    .sec-constat,
-    .sec-demo { grid-template-columns: 1fr; }
-
-    /* Mockup téléphone caché sur tablette */
+    .hero,.sec-constat,.sec-demo { grid-template-columns: 1fr; }
     .hero-right { display: none; }
-
-    /* Hero texte centré */
-    .hero-left {
-      padding: 72px 48px;
-      align-items: center;
-      text-align: center;
-    }
+    .hero-left { padding: 72px 48px; align-items: center; text-align: center; }
     .badge { align-self: center; }
     .hero-sub { margin-left: auto; margin-right: auto; }
-
-    /* Features : 2 colonnes */
     .feat-grid { grid-template-columns: 1fr 1fr; }
-
-    /* Parcours : 2 colonnes, ligne de connexion masquée */
     .flow-steps { grid-template-columns: 1fr 1fr; row-gap: 48px; }
     .flow-steps::before { display: none; }
-
-    /* Objectifs : 3 colonnes */
-    .goals-grid { grid-template-columns: repeat(3, 1fr); }
-
-    /* Cas d'usage : 1 colonne */
+    .goals-grid { grid-template-columns: repeat(3,1fr); }
     .cases-grid { grid-template-columns: 1fr; }
-
-    /* Réduction padding sections */
-    .sec-constat,
-    .sec-feat,
-    .sec-flow,
-    .sec-demo,
-    .sec-goals,
-    .sec-cases,
-    .sec-end { padding: 80px 48px; }
-
-    /* Stats : 2 colonnes conservées */
+    .sec-constat,.sec-feat,.sec-flow,.sec-demo,.sec-goals,.sec-cases,.sec-end { padding: 80px 48px; }
     .stat-grid { grid-template-columns: 1fr 1fr; }
-
-    /* Demo : texte avant carte */
     .sec-demo { gap: 48px; }
-
-    /* Footer */
     footer { flex-direction: column; gap: 12px; text-align: center; padding: 32px; }
   }
-
-  /* ══════════════════════════════
-     RESPONSIVE — MOBILE (≤ 600px)
-  ══════════════════════════════ */
   @media (max-width:600px) {
-
-    /* Hero */
     .hero-left { padding: 56px 24px 64px; }
-    .hero-title { font-size: clamp(2.6rem, 10vw, 3.5rem); }
+    .hero-title { font-size: clamp(2.6rem,10vw,3.5rem); }
     .hero-sub { font-size: .9rem; }
-
-    /* Sections padding réduit */
-    .sec-constat,
-    .sec-feat,
-    .sec-flow,
-    .sec-demo,
-    .sec-goals,
-    .sec-cases,
-    .sec-end { padding: 60px 20px; }
-
-    /* Stats : 1 colonne sur mobile */
+    .sec-constat,.sec-feat,.sec-flow,.sec-demo,.sec-goals,.sec-cases,.sec-end { padding: 60px 20px; }
     .stat-grid { grid-template-columns: 1fr; gap: 14px; }
-
-    /* Features : 1 colonne */
     .feat-grid { grid-template-columns: 1fr; gap: 16px; }
     .feat-card { padding: 26px 22px; }
-
-    /* Parcours : 1 colonne */
     .flow-steps { grid-template-columns: 1fr; row-gap: 36px; }
-
-    /* Objectifs : 2 colonnes */
-    .goals-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .goals-grid { grid-template-columns: repeat(2,1fr); gap: 10px; }
     .goal-pill { border-radius: 16px; padding: 16px 10px; }
-
-    /* Cas d'usage : 1 colonne (déjà fait, padding réduit) */
     .case-card { padding: 26px 22px; }
-
-    /* Demo chips wrap */
     .demo-chips { flex-direction: column; gap: 8px; }
     .chip { text-align: center; }
-
-    /* Menu card */
     .menu-card { padding: 24px 18px; }
     .menu-card-head { flex-wrap: wrap; gap: 10px; }
     .menu-badge { margin-left: 0; }
     .meal-row { flex-wrap: wrap; gap: 8px; }
     .meal-kcal { width: 100%; text-align: right; }
-
-    /* Titre sections */
-    .s-title { font-size: clamp(1.8rem, 7vw, 2.4rem); }
-
-    /* Fin */
-    .end-title { font-size: clamp(2rem, 8vw, 3rem); }
-
-    /* Footer */
+    .s-title { font-size: clamp(1.8rem,7vw,2.4rem); }
+    .end-title { font-size: clamp(2rem,8vw,3rem); }
     footer { padding: 24px 20px; gap: 10px; }
     .footer-copy { font-size: .62rem; text-align: center; }
+    .lang-switcher { top: 12px; right: 12px; }
   }
-
-  /* ══════════════════════════════
-     RESPONSIVE — TRÈS PETIT (≤ 380px)
-  ══════════════════════════════ */
   @media (max-width:380px) {
     .goals-grid { grid-template-columns: 1fr 1fr; }
     .feat-grid  { grid-template-columns: 1fr; }
@@ -416,77 +415,70 @@
 </head>
 <body>
 
+<!-- ════ LANG SWITCHER ════ -->
+<div class="lang-switcher">
+  <button class="lang-btn active" onclick="setLang('fr')">FR</button>
+  <button class="lang-btn" onclick="setLang('en')">EN</button>
+</div>
+
+<!-- ════ VIEW SWITCHER ════ -->
+<div class="view-switcher">
+  <button class="view-btn active" onclick="setView('b2c')"><span data-fr="Particuliers" data-en="Individuals"></span></button>
+  <button class="view-btn" onclick="setView('b2b')"><span data-fr="Professionnels" data-en="Business"></span></button>
+</div>
+
+<div class="view-b2c">
+
 <!-- ════ HERO ════ -->
 <section class="hero">
   <div class="orb orb1"></div>
   <div class="orb orb2"></div>
   <div class="orb orb3"></div>
-
   <div class="hero-left">
-    <div class="badge">Intelligence Nutritionnelle · Propulsé par IA</div>
+    <div class="badge"><span data-fr="Intelligence Nutritionnelle · Propulsé par IA" data-en="Smart Nutrition · Powered by AI"></span></div>
     <h1 class="hero-title">
-      Votre corps<br>
-      <em>sait ce dont</em><br>
-      il a <span class="g">besoin.</span>
+      <span data-fr="Votre corps" data-en="Eat"></span><br>
+      <em><span data-fr="sait ce dont" data-en="smarter."></span></em><br>
+      <span data-fr="il a" data-en="Not"></span> <span class="g"><span data-fr="besoin." data-en="harder."></span></span>
     </h1>
-    <p class="hero-sub">
-      NutriCore vous aide à mieux comprendre vos apports nutritionnels et génère des suggestions de menus adaptées à vos objectifs déclarés — plat par plat, nutriment par nutriment.
-    </p>
+    <p class="hero-sub" data-fr="Dieteye vous aide à mieux comprendre vos apports nutritionnels et génère des suggestions de menus adaptées à vos objectifs déclarés — plat par plat, nutriment par nutriment." data-en="Dieteye turns your health data into a daily meal plan built around you — your biology, your goals, your life. No guesswork. No generic advice. Just food that actually makes sense for your body."></p>
   </div>
-
   <div class="hero-right">
     <div class="phone">
       <div class="phone-notch"></div>
       <div class="phone-screen">
-        <p class="ph-label">Exemple illustratif</p>
-        <p class="ph-title">Profil fictif 👤</p>
-
+        <p class="ph-label" data-fr="Exemple illustratif" data-en="Illustrative example"></p>
+        <p class="ph-title" data-fr="Profil fictif 👤" data-en="Fictional profile 👤"></p>
         <div class="score-box">
           <svg width="52" height="52" viewBox="0 0 52 52">
             <circle cx="26" cy="26" r="21" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="4"/>
-            <circle cx="26" cy="26" r="21" fill="none" stroke="#7a9a72" stroke-width="4"
-              stroke-dasharray="131.9" stroke-dashoffset="40" stroke-linecap="round"
-              transform="rotate(-90 26 26)"/>
+            <circle cx="26" cy="26" r="21" fill="none" stroke="#7a9a72" stroke-width="4" stroke-dasharray="131.9" stroke-dashoffset="40" stroke-linecap="round" transform="rotate(-90 26 26)"/>
             <text x="26" y="30" text-anchor="middle" fill="white" font-size="10" font-family="serif">72</text>
           </svg>
           <div>
-            <div class="ph-label">Score illustratif</div>
+            <div class="ph-label" data-fr="Score illustratif" data-en="Illustrative score"></div>
             <div class="score-val">72 / 100</div>
-            <div class="score-sub">Profil fictif</div>
+            <div class="score-sub" data-fr="Profil fictif" data-en="Fictional profile"></div>
           </div>
         </div>
-
-        <div class="ph-label" style="margin-bottom:8px">Apports insuffisants détectés</div>
+        <div class="ph-label" style="margin-bottom:8px" data-fr="Apports insuffisants détectés" data-en="Low intakes detected"></div>
         <div class="cbar">
-          <div class="cbar-row"><span>Vitamine D</span><span style="color:#e07b5a">Faible</span></div>
+          <div class="cbar-row"><span data-fr="Vitamine D" data-en="Vitamin D"></span><span style="color:#e07b5a" data-fr="Faible" data-en="Low"></span></div>
           <div class="cbar-track"><div class="cbar-fill f-low"></div></div>
         </div>
         <div class="cbar">
-          <div class="cbar-row"><span>Magnésium</span><span style="color:#c9a84c">Moyen</span></div>
+          <div class="cbar-row"><span data-fr="Magnésium" data-en="Magnesium"></span><span style="color:#c9a84c" data-fr="Moyen" data-en="Medium"></span></div>
           <div class="cbar-track"><div class="cbar-fill f-mid"></div></div>
         </div>
         <div class="cbar">
-          <div class="cbar-row"><span>Fer</span><span style="color:#7a9a72">Correct</span></div>
+          <div class="cbar-row"><span data-fr="Fer" data-en="Iron"></span><span style="color:#7a9a72" data-fr="Correct" data-en="Adequate"></span></div>
           <div class="cbar-track"><div class="cbar-fill f-ok"></div></div>
         </div>
-
         <div class="menu-box">
-          <div class="ph-label" style="margin-bottom:8px">Menu IA — Exemple</div>
-          <div class="menu-row">
-            <span class="menu-icon">🌅</span>
-            <div><div class="menu-name">Porridge & graines de courge</div><div class="menu-tag">+ Magnésium · Vit D</div></div>
-            <div class="menu-kcal">~320 kcal</div>
-          </div>
-          <div class="menu-row">
-            <span class="menu-icon">☀️</span>
-            <div><div class="menu-name">Saumon & épinards sautés</div><div class="menu-tag">+ Oméga-3 · Vit D</div></div>
-            <div class="menu-kcal">~500 kcal</div>
-          </div>
-          <div class="menu-row" style="margin-bottom:0">
-            <span class="menu-icon">🌙</span>
-            <div><div class="menu-name">Lentilles & riz complet</div><div class="menu-tag">+ Magnésium · Fer</div></div>
-            <div class="menu-kcal">~450 kcal</div>
-          </div>
+          <div class="ph-label" style="margin-bottom:8px" data-fr="Menu IA — Exemple" data-en="AI Menu — Example"></div>
+          <div class="menu-row"><span class="menu-icon">🌅</span><div><div class="menu-name" data-fr="Porridge & graines de courge" data-en="Porridge & pumpkin seeds"></div><div class="menu-tag">+ Magnesium · Vit D</div></div><div class="menu-kcal">~320 kcal</div></div>
+          <div class="menu-row"><span class="menu-icon">☀️</span><div><div class="menu-name" data-fr="Saumon & épinards sautés" data-en="Salmon & sautéed spinach"></div><div class="menu-tag">+ Omega-3 · Vit D</div></div><div class="menu-kcal">~500 kcal</div></div>
+          <div class="menu-row" style="margin-bottom:0"><span class="menu-icon">🌙</span><div><div class="menu-name" data-fr="Lentilles & riz complet" data-en="Lentils & brown rice"></div><div class="menu-tag">+ Magnesium · Iron</div></div><div class="menu-kcal">~450 kcal</div></div>
         </div>
       </div>
     </div>
@@ -496,78 +488,76 @@
 <!-- ════ CONSTAT ════ -->
 <section class="sec-constat">
   <div>
-    <p class="s-label">Le constat</p>
-    <h2 class="s-title">La nutrition générique <em>ne suffit pas.</em></h2>
-    <p class="s-body">
-      Les recommandations nutritionnelles officielles s'adressent à une population moyenne. Or les grandes enquêtes épidémiologiques françaises — ENNS, INCA 3, Esteban — montrent que les carences en magnésium, vitamine D et fer touchent une part massive de la population adulte, souvent sans symptômes visibles.
-    </p>
+    <p class="s-label" data-fr="Le constat" data-en="The problem"></p>
+    <h2 class="s-title"><span data-fr="La nutrition générique" data-en="One-size-fits-all nutrition"></span> <em><span data-fr="ne suffit pas." data-en="just doesn't cut it."></span></em></h2>
+    <p class="s-body" data-fr="Les recommandations nutritionnelles officielles s'adressent à une population moyenne. Or les grandes enquêtes épidémiologiques françaises — ENNS, INCA 3, Esteban — montrent que les apports en magnésium, vitamine D et fer sont insuffisants chez une large part de la population adulte, souvent sans symptômes visibles." data-en="Standard dietary guidelines are built for the average person — not for you. And the numbers speak for themselves: most adults are running low on key nutrients without even knowing it. No symptoms, no warning signs. Just a body that could be performing so much better."></p>
   </div>
   <div class="stat-grid">
     <div class="stat-card">
       <div class="stat-num">75<sup>%</sup></div>
-      <div class="stat-desc">des adultes français ont des apports en magnésium inférieurs aux recommandations</div>
-      <div class="stat-source">Étude INCA 3 / SU.VI.MAX — ANSES</div>
+      <div class="stat-desc" data-fr="des adultes français ont des apports en magnésium inférieurs aux recommandations" data-en="of French adults don't get enough magnesium — and most have no idea"></div>
+      <div class="stat-source">INCA 3 / SU.VI.MAX — ANSES</div>
     </div>
     <div class="stat-card">
       <div class="stat-num">80<sup>%</sup></div>
-      <div class="stat-desc">des adultes présentent un déficit en vitamine D en hiver</div>
-      <div class="stat-source">Étude ENNS — Santé publique France</div>
+      <div class="stat-desc" data-fr="des adultes présentent un déficit en vitamine D en hiver" data-en="of adults are vitamin D deficient in winter. That's not a minority — that's nearly everyone."></div>
+      <div class="stat-source">ENNS — Santé publique France</div>
     </div>
     <div class="stat-card">
       <div class="stat-num">20<sup>%</sup></div>
-      <div class="stat-desc">des femmes en âge de procréer sont touchées par une carence en fer</div>
-      <div class="stat-source">OMS / ANSES</div>
+      <div class="stat-desc" data-fr="des femmes en âge de procréer sont touchées par une carence en fer" data-en="of women of childbearing age are iron deficient — the world's most common nutritional deficiency"></div>
+      <div class="stat-source">OMS / ANSES — WHO / ANSES</div>
     </div>
     <div class="stat-card">
-      <div class="stat-num" style="font-size:1.55rem;line-height:1.3;">Meilleurs<br>résultats</div>
-      <div class="stat-desc">La nutrition personnalisée produit des changements alimentaires plus importants et durables qu'une approche standard</div>
-      <div class="stat-source">Étude Food4Me, 7 pays européens — EFSA 2019</div>
+      <div class="stat-num" style="font-size:1.55rem;line-height:1.3;" data-fr="Meilleurs résultats" data-en="Better results"></div>
+      <div class="stat-desc" data-fr="La nutrition personnalisée produit des changements alimentaires plus importants et durables qu'une approche standard" data-en="Personalised nutrition drives bigger, longer-lasting dietary change than any standard approach — proven across 7 European countries"></div>
+      <div class="stat-source">Food4Me, 7 <span data-fr="pays européens" data-en="European countries"></span> — EFSA 2019</div>
     </div>
   </div>
 </section>
 
-<!-- ════ FONCTIONNALITÉS ════ -->
+<!-- ════ FEATURES ════ -->
 <section class="sec-feat">
   <div class="feat-header">
-    <p class="s-label">Ce que fait NutriCore</p>
-    <h2 class="s-title">Une IA qui <em>comprend</em> votre profil</h2>
+    <p class="s-label" data-fr="Ce que fait Dieteye" data-en="Built to work for you"></p>
+    <h2 class="s-title"><span data-fr="Une IA qui" data-en="An AI that actually"></span> <em><span data-fr="comprend" data-en="gets"></span></em> <span data-fr="votre profil" data-en="your body"></span></h2>
   </div>
   <div class="feat-grid">
     <div class="feat-card">
       <div class="feat-icon">📋</div>
-      <h3 class="feat-title">Profil nutritionnel</h3>
-      <p class="feat-desc">Vous renseignez vos habitudes alimentaires, intolérances, bilans biologiques récents et objectifs. L'application construit un profil nutritionnel personnel sur cette base déclarative.</p>
-      <span class="feat-chip">Saisie initiale</span>
+      <h3 class="feat-title" data-fr="Profil nutritionnel" data-en="Your health profile"></h3>
+      <p class="feat-desc" data-fr="Vous renseignez vos habitudes alimentaires, intolérances, bilans biologiques récents et objectifs. L'application construit un profil nutritionnel personnel sur cette base déclarative." data-en="Tell us about your eating habits, intolerances, recent blood work and goals. Dieteye builds a nutrition profile that's 100% yours — not a template, not an average."></p>
+      <span class="feat-chip" data-fr="Saisie initiale" data-en="Quick onboarding"></span>
     </div>
     <div class="feat-card">
       <div class="feat-icon">📊</div>
-      <h3 class="feat-title">Visualisation de vos apports</h3>
-      <p class="feat-desc">Sur la base des données que vous renseignez et de vos bilans biologiques importés, l'application compare vos apports aux valeurs de référence nutritionnelles de l'ANSES et vous propose des pistes d'amélioration alimentaire.</p>
-      <span class="feat-chip">Aide à la décision</span>
+      <h3 class="feat-title" data-fr="Visualisation de vos apports" data-en="See exactly where you stand"></h3>
+      <p class="feat-desc" data-fr="Sur la base des données renseignées et de vos bilans biologiques importés, l'application compare vos apports aux valeurs de référence nutritionnelles et vous propose des pistes d'amélioration." data-en="Import your blood results and we'll show you exactly which nutrients you're falling short on — compared to science-backed reference values, not guesswork."></p>
+      <span class="feat-chip" data-fr="Aide à la décision" data-en="Clear insights"></span>
     </div>
     <div class="feat-card">
       <div class="feat-icon">🍽️</div>
-      <h3 class="feat-title">Menus générés par IA</h3>
-      <p class="feat-desc">L'IA compose un menu complet — petit-déjeuner, déjeuner, dîner et collations — calculé pour optimiser vos apports en micronutriments déficitaires tout en respectant vos préférences.</p>
-      <span class="feat-chip">Génération IA</span>
+      <h3 class="feat-title" data-fr="Menus générés par IA" data-en="Meals made for you, daily"></h3>
+      <p class="feat-desc" data-fr="L'IA compose un menu complet — petit-déjeuner, déjeuner, dîner et collations — calculé pour optimiser vos apports en micronutriments déficitaires tout en respectant vos préférences." data-en="Every day, Dieteye builds a full meal plan — breakfast through dinner — specifically designed to fill your gaps while still respecting what you love to eat."></p>
+      <span class="feat-chip" data-fr="Génération IA" data-en="Powered by AI"></span>
     </div>
     <div class="feat-card">
       <div class="feat-icon">🎯</div>
-      <h3 class="feat-title">Objectifs personnalisés</h3>
-      <p class="feat-desc">Rééquilibrage alimentaire, gestion du poids, énergie au quotidien, préférences sportives… chaque objectif déclaré oriente la composition des suggestions de menus.</p>
-      <span class="feat-chip">Multi-objectifs</span>
+      <h3 class="feat-title" data-fr="Objectifs personnalisés" data-en="Goals that shape everything"></h3>
+      <p class="feat-desc" data-fr="Rééquilibrage alimentaire, gestion du poids, énergie au quotidien, préférences sportives… chaque objectif déclaré oriente la composition des suggestions de menus." data-en="Whether you're working on your weight, your energy levels or your performance — every goal you set gets baked directly into your meal suggestions."></p>
+      <span class="feat-chip" data-fr="Multi-objectifs" data-en="Goal-driven"></span>
     </div>
     <div class="feat-card">
       <div class="feat-icon">👨‍🍳</div>
-      <h3 class="feat-title">Recettes & instructions</h3>
-      <p class="feat-desc">Pour chaque plat suggéré : recette détaillée, temps de préparation estimé, liste de courses et alternatives selon vos préférences ou contraintes de budget.</p>
-      <span class="feat-chip">Guide culinaire</span>
+      <h3 class="feat-title" data-fr="Recettes & instructions" data-en="Recipes you'll actually make"></h3>
+      <p class="feat-desc" data-fr="Pour chaque plat suggéré : recette détaillée, temps de préparation estimé, liste de courses et alternatives selon vos préférences ou contraintes de budget." data-en="Each suggested dish comes with a full recipe, prep time, a ready-to-go shopping list and budget-friendly swaps. No excuses, no friction."></p>
+      <span class="feat-chip" data-fr="Guide culinaire" data-en="Cook with confidence"></span>
     </div>
     <div class="feat-card">
       <div class="feat-icon">📈</div>
-      <h3 class="feat-title">Suivi dans le temps</h3>
-      <p class="feat-desc">Visualisez l'évolution de vos apports nutritionnels. À chaque mise à jour de profil ou de bilan, le plan alimentaire est recalculé pour rester adapté.</p>
-      <span class="feat-chip">Suivi continu</span>
+      <h3 class="feat-title" data-fr="Suivi dans le temps" data-en="Track your progress"></h3>
+      <p class="feat-desc" data-fr="Visualisez l'évolution de vos apports nutritionnels. À chaque mise à jour de profil ou de bilan, le plan alimentaire est recalculé pour rester adapté." data-en="Watch your nutritional intake improve over time. Every time you update your profile or upload new blood results, your plan automatically adjusts to keep up."></p>
+      <span class="feat-chip" data-fr="Suivi continu" data-en="Always up to date"></span>
     </div>
   </div>
 </section>
@@ -575,108 +565,91 @@
 <!-- ════ PARCOURS ════ -->
 <section class="sec-flow">
   <div class="flow-header">
-    <p class="s-label">Comment ça fonctionne</p>
-    <h2 class="s-title">De votre profil à votre <em>assiette</em></h2>
+    <p class="s-label" data-fr="Comment ça fonctionne" data-en="How it works"></p>
+    <h2 class="s-title"><span data-fr="De votre profil à votre" data-en="From your data to your"></span> <em><span data-fr="assiette" data-en="plate"></span></em></h2>
   </div>
   <div class="flow-steps">
     <div class="flow-step">
       <div class="flow-num">1</div>
       <div class="flow-emoji">📋</div>
-      <h4 class="flow-title">Bilan de départ</h4>
-      <p class="flow-desc">Renseignez vos habitudes alimentaires, vos intolérances et importez vos bilans biologiques récents.</p>
+      <h4 class="flow-title" data-fr="Bilan de départ" data-en="Build your profile"></h4>
+      <p class="flow-desc" data-fr="Renseignez vos habitudes alimentaires, vos intolérances et importez vos bilans biologiques récents." data-en="Share your eating habits, intolerances and upload your latest blood test results. Takes just a few minutes."></p>
     </div>
     <div class="flow-step">
       <div class="flow-num">2</div>
       <div class="flow-emoji">🔬</div>
-      <h4 class="flow-title">Comparaison aux références</h4>
-      <p class="flow-desc">L'application compare vos apports déclarés aux valeurs de référence nutritionnelles (VNR) de l'ANSES et met en évidence les écarts éventuels.</p>
+      <h4 class="flow-title" data-fr="Comparaison aux références" data-en="We crunch the data"></h4>
+      <p class="flow-desc" data-fr="L'application compare vos apports déclarés aux valeurs de référence nutritionnelles et met en évidence les écarts éventuels." data-en="Dieteye cross-references your intake against science-backed nutritional benchmarks and pinpoints exactly what's missing."></p>
     </div>
     <div class="flow-step">
       <div class="flow-num">3</div>
       <div class="flow-emoji">🤖</div>
-      <h4 class="flow-title">Menu suggéré</h4>
-      <p class="flow-desc">Un menu complet est généré pour vous, tenant compte de vos apports déclarés, de vos préférences alimentaires et de vos objectifs.</p>
+      <h4 class="flow-title" data-fr="Menu suggéré" data-en="Get your meal plan"></h4>
+      <p class="flow-desc" data-fr="Un menu complet est généré pour vous, tenant compte de vos apports déclarés, de vos préférences et de vos objectifs." data-en="A full day of meals, built around your biology and your goals. Every dish has a purpose."></p>
     </div>
     <div class="flow-step">
       <div class="flow-num">4</div>
       <div class="flow-emoji">📊</div>
-      <h4 class="flow-title">Suivi continu</h4>
-      <p class="flow-desc">Vos apports sont tracés dans le temps. Le plan se recalcule à chaque mise à jour de votre profil ou de vos bilans.</p>
+      <h4 class="flow-title" data-fr="Suivi continu" data-en="Keep improving"></h4>
+      <p class="flow-desc" data-fr="Vos apports sont tracés dans le temps. Le plan se recalcule à chaque mise à jour de votre profil ou de vos bilans." data-en="As your health evolves, so does your plan. Update your results anytime and Dieteye adapts instantly."></p>
     </div>
   </div>
 </section>
 
-<!-- ════ EXEMPLE MENU ════ -->
+<!-- ════ MENU DEMO ════ -->
 <section class="sec-demo">
   <div>
-    <p class="s-label">Exemple de menu IA</p>
-    <h2 class="s-title">Chaque repas a <em>une raison</em> d'être.</h2>
-    <p class="s-body">
-      Chaque plat est sélectionné pour sa contribution précise à votre profil nutritionnel. Les aliments riches en vitamine D (saumon, œufs, champignons) ou en magnésium (légumineuses, noix, chocolat noir) sont prioritairement suggérés si votre profil le nécessite.
-    </p>
+    <p class="s-label" data-fr="Exemple de menu IA" data-en="See it in action"></p>
+    <h2 class="s-title"><span data-fr="Chaque repas a" data-en="Every meal"></span> <em><span data-fr="une raison" data-en="earns its"></span></em> <span data-fr="d'être." data-en="place."></span></h2>
+    <p class="s-body" data-fr="Chaque plat est sélectionné pour sa contribution précise à votre profil nutritionnel. Les aliments riches en vitamine D (saumon, œufs, champignons) ou en magnésium (légumineuses, noix, chocolat noir) sont prioritairement suggérés si votre profil le nécessite." data-en="Nothing on your plate is random. Every ingredient is chosen because your body needs it. Low on vitamin D? Salmon's on the menu tonight. Short on magnesium? Dark chocolate just became a legitimate snack."></p>
     <div class="demo-chips">
-      <span class="chip chip-g">📋 Basé sur vos bilans biologiques</span>
-      <span class="chip chip-c">🔄 Recalculé à chaque mise à jour</span>
-      <span class="chip chip-o">🎯 Adapté à vos objectifs déclarés</span>
+      <span class="chip chip-g" data-fr="📋 Basé sur vos bilans biologiques" data-en="📋 Rooted in your blood work"></span>
+      <span class="chip chip-c" data-fr="🔄 Recalculé à chaque mise à jour" data-en="🔄 Refreshed as you evolve"></span>
+      <span class="chip chip-o" data-fr="🎯 Adapté à vos objectifs déclarés" data-en="🎯 Wired to your goals"></span>
     </div>
   </div>
-
   <div class="menu-card">
     <div class="menu-card-head">
       <div class="menu-av">🌿</div>
       <div>
-        <div class="menu-uname">Profil fictif — exemple illustratif</div>
-        <div class="menu-usub">Objectif : Énergie & Immunité · Vit D insuffisante</div>
+        <div class="menu-uname" data-fr="Profil fictif — exemple illustratif" data-en="Fictional profile — illustrative example"></div>
+        <div class="menu-usub" data-fr="Objectif : Énergie & Bien-être · Vit D insuffisante" data-en="Goal: Energy & Wellbeing · Low Vitamin D"></div>
       </div>
-      <div class="menu-badge">Menu IA</div>
+      <div class="menu-badge" data-fr="Menu IA" data-en="AI Menu"></div>
     </div>
-    <div class="menu-day-label">Exemple de journée — calories indicatives (~)</div>
+    <div class="menu-day-label" data-fr="Exemple de journée — calories indicatives (~)" data-en="Sample day — indicative calories (~)"></div>
     <div class="meal-row">
-      <span class="meal-time">7h30</span>
+      <span class="meal-time" data-fr="7h30" data-en="7:30 am"></span>
       <div class="meal-info">
-        <div class="meal-name">Porridge avoine, lait enrichi & graines de courge</div>
-        <div class="meal-pills">
-          <span class="pill po">Vit D</span>
-          <span class="pill po">Magnésium</span>
-          <span class="pill po">Zinc</span>
-        </div>
-        <div class="meal-note">Apport Vitamine D</div>
+        <div class="meal-name" data-fr="Porridge avoine, lait enrichi & graines de courge" data-en="Oat porridge, fortified milk & pumpkin seeds"></div>
+        <div class="meal-pills"><span class="pill po">Vit D</span><span class="pill po">Magnesium</span><span class="pill po">Zinc</span></div>
+        <div class="meal-note" data-fr="Apport Vitamine D" data-en="Vitamin D intake"></div>
       </div>
       <div class="meal-kcal">~310 kcal</div>
     </div>
     <div class="meal-row">
-      <span class="meal-time">12h30</span>
+      <span class="meal-time" data-fr="12h30" data-en="12:30 pm"></span>
       <div class="meal-info">
-        <div class="meal-name">Saumon mi-cuit, lentilles corail & épinards sautés</div>
-        <div class="meal-pills">
-          <span class="pill pg">Oméga-3</span>
-          <span class="pill pg">Fer</span>
-          <span class="pill po">Vit D</span>
-        </div>
-        <div class="meal-note">Apport Vitamine D & Fer</div>
+        <div class="meal-name" data-fr="Saumon mi-cuit, lentilles corail & épinards sautés" data-en="Pan-seared salmon, red lentils & sautéed spinach"></div>
+        <div class="meal-pills"><span class="pill pg">Omega-3</span><span class="pill pg">Iron</span><span class="pill po">Vit D</span></div>
+        <div class="meal-note" data-fr="Apport Vitamine D & Fer" data-en="Vitamin D & Iron intake"></div>
       </div>
       <div class="meal-kcal">~540 kcal</div>
     </div>
     <div class="meal-row">
-      <span class="meal-time">16h00</span>
+      <span class="meal-time" data-fr="16h00" data-en="4:00 pm"></span>
       <div class="meal-info">
-        <div class="meal-name">Amandes & chocolat noir 85%</div>
-        <div class="meal-pills">
-          <span class="pill po">Magnésium</span>
-        </div>
+        <div class="meal-name" data-fr="Amandes & chocolat noir 85%" data-en="Almonds & 85% dark chocolate"></div>
+        <div class="meal-pills"><span class="pill po">Magnesium</span></div>
       </div>
       <div class="meal-kcal">~180 kcal</div>
     </div>
     <div class="meal-row">
-      <span class="meal-time">19h30</span>
+      <span class="meal-time" data-fr="19h30" data-en="7:30 pm"></span>
       <div class="meal-info">
-        <div class="meal-name">Tempeh grillé, riz basmati & champignons shiitake</div>
-        <div class="meal-pills">
-          <span class="pill pg">Vit D</span>
-          <span class="pill pc">Protéines</span>
-          <span class="pill po">Sélénium</span>
-        </div>
-        <div class="meal-note">Source de Vitamine D & Sélénium</div>
+        <div class="meal-name" data-fr="Tempeh grillé, riz basmati & champignons shiitake" data-en="Grilled tempeh, basmati rice & shiitake mushrooms"></div>
+        <div class="meal-pills"><span class="pill pg">Vit D</span><span class="pill pc" data-fr="Protéines" data-en="Protein"></span><span class="pill po">Selenium</span></div>
+        <div class="meal-note" data-fr="Source de Vitamine D & Sélénium" data-en="Source of Vitamin D & Selenium"></div>
       </div>
       <div class="meal-kcal">~480 kcal</div>
     </div>
@@ -686,78 +659,251 @@
 <!-- ════ OBJECTIFS ════ -->
 <section class="sec-goals">
   <div class="goals-head">
-    <p class="s-label">Profils ciblés</p>
-    <h2 class="s-title">Chaque profil, <em>chaque objectif</em></h2>
+    <p class="s-label" data-fr="Profils ciblés" data-en="Built for real life"></p>
+    <h2 class="s-title"><span data-fr="Chaque profil," data-en="Whatever your goal,"></span> <em><span data-fr="chaque objectif" data-en="we've got you"></span></em></h2>
   </div>
   <div class="goals-grid">
-    <div class="goal-pill"><span class="goal-emoji">⚖️</span><div class="goal-label">Gestion du poids</div></div>
-    <div class="goal-pill"><span class="goal-emoji">💪</span><div class="goal-label">Alimentation sportive</div></div>
-    <div class="goal-pill"><span class="goal-emoji">⚡</span><div class="goal-label">Énergie au quotidien</div></div>
-    <div class="goal-pill"><span class="goal-emoji">🥗</span><div class="goal-label">Rééquilibrage alimentaire</div></div>
-    <div class="goal-pill"><span class="goal-emoji">🌱</span><div class="goal-label">Alimentation végétale</div></div>
-    <div class="goal-pill"><span class="goal-emoji">🧘</span><div class="goal-label">Bien-être au quotidien</div></div>
-    <div class="goal-pill"><span class="goal-emoji">🤰</span><div class="goal-label">Besoins spécifiques grossesse</div></div>
-    <div class="goal-pill"><span class="goal-emoji">🏃</span><div class="goal-label">Endurance & récupération</div></div>
-    <div class="goal-pill"><span class="goal-emoji">🍽️</span><div class="goal-label">Diversification alimentaire</div></div>
-    <div class="goal-pill"><span class="goal-emoji">🌿</span><div class="goal-label">Confort digestif</div></div>
+    <div class="goal-pill"><span class="goal-emoji">⚖️</span><div class="goal-label" data-fr="Gestion du poids" data-en="Weight management"></div></div>
+    <div class="goal-pill"><span class="goal-emoji">💪</span><div class="goal-label" data-fr="Alimentation sportive" data-en="Sports nutrition"></div></div>
+    <div class="goal-pill"><span class="goal-emoji">⚡</span><div class="goal-label" data-fr="Énergie au quotidien" data-en="Daily energy"></div></div>
+    <div class="goal-pill"><span class="goal-emoji">🥗</span><div class="goal-label" data-fr="Rééquilibrage alimentaire" data-en="Dietary rebalancing"></div></div>
+    <div class="goal-pill"><span class="goal-emoji">🌱</span><div class="goal-label" data-fr="Alimentation végétale" data-en="Plant-based diet"></div></div>
+    <div class="goal-pill"><span class="goal-emoji">🧘</span><div class="goal-label" data-fr="Bien-être au quotidien" data-en="Daily wellbeing"></div></div>
+    <div class="goal-pill"><span class="goal-emoji">🤰</span><div class="goal-label" data-fr="Besoins spécifiques grossesse" data-en="Pregnancy-specific needs"></div></div>
+    <div class="goal-pill"><span class="goal-emoji">🏃</span><div class="goal-label" data-fr="Endurance & récupération" data-en="Endurance & recovery"></div></div>
+    <div class="goal-pill"><span class="goal-emoji">🍽️</span><div class="goal-label" data-fr="Diversification alimentaire" data-en="Dietary diversification"></div></div>
+    <div class="goal-pill"><span class="goal-emoji">🌿</span><div class="goal-label" data-fr="Confort digestif" data-en="Digestive comfort"></div></div>
   </div>
 </section>
 
 <!-- ════ CAS D'USAGE ════ -->
 <section class="sec-cases">
   <div class="cases-head">
-    <p class="s-label">À qui s'adresse NutriCore</p>
-    <h2 class="s-title">Cas d'usage <em>illustratifs</em></h2>
-    <p class="note">Ces profils sont des exemples représentatifs basés sur des données épidémiologiques réelles — pas des témoignages.</p>
+    <p class="s-label" data-fr="À qui s'adresse Dieteye" data-en="Real people. Real needs."></p>
+    <h2 class="s-title"><span data-fr="Cas d'usage" data-en="Who's already"></span> <em><span data-fr="illustratifs" data-en="benefiting"></span></em></h2>
+    <p class="note" data-fr="Ces profils sont des exemples représentatifs basés sur des données épidémiologiques réelles — pas des témoignages." data-en="These are illustrative profiles based on real epidemiological data — not individual testimonials."></p>
   </div>
   <div class="cases-grid">
     <div class="case-card">
       <div class="case-icon">🥗</div>
-      <span class="case-chip cc1">Profil illustratif</span>
-      <h3 class="case-title">Personne souhaitant rééquilibrer son alimentation</h3>
-      <p class="case-desc">Ses habitudes alimentaires déclarées et ses bilans biologiques importés montrent des apports faibles en fer et vitamine B9. NutriCore suggère des repas incluant légumineuses, foie de volaille et agrumes, conformément aux recommandations de l'ANSES.</p>
-      <p class="case-profile">Adulte actif · Objectif : améliorer ses apports en fer et vitamine B9</p>
+      <span class="case-chip cc1" data-fr="Profil illustratif" data-en="Illustrative profile"></span>
+      <h3 class="case-title" data-fr="Personne souhaitant rééquilibrer son alimentation" data-en="The person who just wants to eat better"></h3>
+      <p class="case-desc" data-fr="Ses habitudes alimentaires déclarées et ses bilans biologiques importés montrent des apports faibles en fer et vitamine B9. Dieteye suggère des repas incluant légumineuses, foie de volaille et agrumes, conformément aux recommandations de l'ANSES." data-en="Their blood work flags low iron and vitamin B9. Dieteye builds meals around legumes, poultry and citrus — foods that naturally boost absorption, no supplements needed."></p>
+      <p class="case-profile" data-fr="Adulte actif · Objectif : améliorer ses apports en fer et vitamine B9" data-en="Active adult · Goal: boost iron & vitamin B9 intake"></p>
     </div>
     <div class="case-card">
       <div class="case-icon">🏃</div>
-      <span class="case-chip cc2">Profil illustratif</span>
-      <h3 class="case-title">Sportif amateur souhaitant adapter son alimentation</h3>
-      <p class="case-desc">Ses apports déclarés en magnésium et vitamine D sont inférieurs aux valeurs de référence nutritionnelles — deux des apports les plus fréquemment insuffisants en France selon l'ANSES (INCA 3, ENNS). NutriCore ajuste ses suggestions de menus en conséquence.</p>
-      <p class="case-profile">Adulte pratiquant une activité sportive régulière · Objectif : adapter ses apports à son mode de vie</p>
+      <span class="case-chip cc2" data-fr="Profil illustratif" data-en="Illustrative profile"></span>
+      <h3 class="case-title" data-fr="Sportif amateur souhaitant adapter son alimentation" data-en="The athlete who wants to perform at their best"></h3>
+      <p class="case-desc" data-fr="Ses apports déclarés en magnésium et vitamine D sont inférieurs aux valeurs de référence — deux des apports les plus fréquemment insuffisants en France selon l'ANSES. Dieteye ajuste ses suggestions de menus en conséquence." data-en="Magnesium and vitamin D — two of the most common gaps in active adults. Dieteye spots them, fixes the menu, and the body gets what it needs to recover and push harder."></p>
+      <p class="case-profile" data-fr="Adulte pratiquant une activité sportive régulière · Objectif : adapter ses apports à son mode de vie" data-en="Regular gym-goer · Goal: fuel performance & recovery"></p>
     </div>
     <div class="case-card">
       <div class="case-icon">🤰</div>
-      <span class="case-chip cc3">Profil illustratif</span>
-      <h3 class="case-title">Personne aux besoins nutritionnels spécifiques</h3>
-      <p class="case-desc">Certaines périodes de vie — grossesse, allaitement, post-partum — s'accompagnent de besoins accrus en iode, oméga-3 et vitamine B9 selon l'ANSES. NutriCore tient compte de ces besoins déclarés pour orienter ses suggestions alimentaires.</p>
-      <p class="case-profile">Adulte en période à besoins spécifiques · Objectif : adapter ses apports à sa situation</p>
+      <span class="case-chip cc3" data-fr="Profil illustratif" data-en="Illustrative profile"></span>
+      <h3 class="case-title" data-fr="Personne aux besoins nutritionnels spécifiques" data-en="The person going through a major life change"></h3>
+      <p class="case-desc" data-fr="Certaines périodes de vie — grossesse, allaitement, post-partum — s'accompagnent de besoins accrus en iode, oméga-3 et vitamine B9 selon l'ANSES. Dieteye tient compte de ces besoins déclarés pour orienter ses suggestions alimentaires." data-en="Pregnancy, breastfeeding, postpartum — your body's needs shift dramatically. Dieteye adapts your meal plan to match, covering the extra iodine, omega-3 and B9 your body now requires."></p>
+      <p class="case-profile" data-fr="Adulte en période à besoins spécifiques · Objectif : adapter ses apports à sa situation" data-en="Adult in a key life phase · Goal: meet elevated nutritional needs"></p>
     </div>
   </div>
 </section>
 
 <!-- ════ FIN ════ -->
 <section class="sec-end">
-  <p class="end-label">Projet en développement</p>
-  <h2 class="end-title">Intéressé par<br><em>NutriCore ?</em></h2>
-  <p class="end-sub">
-    L'application est en cours de développement. Pour en savoir plus, participer à la bêta ou discuter d'un partenariat, contactez-nous directement.
-  </p>
-  <p class="end-contact"><strong>contact@nutricore.app</strong></p>
+  <p class="end-label" data-fr="Projet en développement" data-en="Currently in development"></p>
+  <h2 class="end-title"><span data-fr="Intéressé par" data-en="Want to be part of"></span><br><em>Dieteye ?</em></h2>
+  <p class="end-sub" data-fr="L'application est en cours de développement. Pour en savoir plus, participer à la bêta ou discuter d'un partenariat, contactez-nous directement." data-en="We're building something that matters. If you'd like to learn more, join the beta or explore a partnership — we'd love to hear from you."></p>
+  <p class="end-contact"><strong>amine.cader@dieteye.eu</strong></p>
 </section>
+
+</div>
+<!-- ════ END OF B2C VIEW ════ -->
+
+<!-- ════════════════════════════════ -->
+<!-- ════ B2B VIEW ════ -->
+<!-- ════════════════════════════════ -->
+<div class="view-b2b">
+
+<!-- ════ B2B HERO ════ -->
+<section class="sec-b2b-hero">
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="badge" style="margin:0 auto 36px;"><span data-fr="Solution B2B · Nutrition personnalisée à l'échelle" data-en="B2B Solution · Personalised nutrition at scale"></span></div>
+  <h1 class="hero-title">
+    <span data-fr="Donnez à vos" data-en="Give your"></span> <em><span data-fr="clients" data-en="clients"></span></em><br>
+    <span data-fr="un vrai avantage" data-en="a real"></span> <span class="g"><span data-fr="nutritionnel." data-en="nutritional edge."></span></span>
+  </h1>
+  <p class="hero-sub" data-fr="Dieteye s'intègre à votre structure — salle de sport, cabinet, mutuelle ou entreprise — pour offrir à vos membres un accompagnement nutritionnel personnalisé, basé sur leurs données biologiques réelles." data-en="Dieteye plugs into your business — gym, clinic, insurer or company — to give your members personalised nutrition guidance built on their actual biological data."></p>
+  <div class="b2b-stats-row">
+    <div class="b2b-stat">
+      <div class="b2b-stat-num">75<span style="font-size:1.2rem">%</span></div>
+      <div class="b2b-stat-label" data-fr="d'adultes en carence de magnésium" data-en="of adults magnesium deficient"></div>
+    </div>
+    <div class="b2b-stat">
+      <div class="b2b-stat-num">80<span style="font-size:1.2rem">%</span></div>
+      <div class="b2b-stat-label" data-fr="en déficit de vitamine D en hiver" data-en="vitamin D deficient in winter"></div>
+    </div>
+    <div class="b2b-stat">
+      <div class="b2b-stat-num" data-fr="Sur-mesure" data-en="Tailored"></div>
+      <div class="b2b-stat-label" data-fr="intégration à votre marque" data-en="white-label integration"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ QUI CIBLE-T-ON ════ -->
+<section class="sec-b2b-partners">
+  <div class="b2b-partners-head">
+    <p class="s-label" data-fr="Partenaires potentiels" data-en="Who we work with"></p>
+    <h2 class="s-title"><span data-fr="Une solution pensée pour" data-en="Built for the businesses"></span> <em><span data-fr="votre secteur" data-en="you run"></span></em></h2>
+  </div>
+  <div class="b2b-partners-grid">
+    <div class="b2b-partner-card">
+      <div class="b2b-partner-icon">🏋️</div>
+      <h3 class="b2b-partner-title" data-fr="Salles de sport" data-en="Gyms & fitness clubs"></h3>
+      <p class="b2b-partner-desc" data-fr="Prolongez l'accompagnement de vos membres au-delà de la salle, jusque dans leur assiette." data-en="Extend your members' coaching beyond the gym floor and into their kitchen."></p>
+    </div>
+    <div class="b2b-partner-card">
+      <div class="b2b-partner-icon">🩺</div>
+      <h3 class="b2b-partner-title" data-fr="Cabinets & cliniques" data-en="Clinics & practitioners"></h3>
+      <p class="b2b-partner-desc" data-fr="Donnez à vos patients un suivi nutritionnel entre deux consultations." data-en="Give your patients ongoing nutritional support between appointments."></p>
+    </div>
+    <div class="b2b-partner-card">
+      <div class="b2b-partner-icon">🏢</div>
+      <h3 class="b2b-partner-title" data-fr="Entreprises" data-en="Corporate wellness"></h3>
+      <p class="b2b-partner-desc" data-fr="Intégrez Dieteye à votre programme de bien-être au travail." data-en="Add Dieteye to your employee wellbeing program."></p>
+    </div>
+    <div class="b2b-partner-card">
+      <div class="b2b-partner-icon">🛡️</div>
+      <h3 class="b2b-partner-title" data-fr="Mutuelles & assurances" data-en="Insurers & health plans"></h3>
+      <p class="b2b-partner-desc" data-fr="Proposez la prévention nutritionnelle comme service à valeur ajoutée." data-en="Offer nutritional prevention as a genuine value-added service."></p>
+    </div>
+  </div>
+</section>
+
+<!-- ════ MODÈLE DE COLLABORATION ════ -->
+<section class="sec-b2b-model">
+  <div class="b2b-model-head">
+    <p class="s-label" data-fr="Comment on travaille ensemble" data-en="How we work together"></p>
+    <h2 class="s-title"><span data-fr="Une intégration" data-en="Integration that's"></span> <em><span data-fr="simple et sur-mesure" data-en="simple and tailored"></span></em></h2>
+  </div>
+  <div class="b2b-model-grid">
+    <div class="b2b-model-card">
+      <div class="b2b-model-num">01</div>
+      <h3 class="b2b-model-title" data-fr="Accès dédié pour vos membres" data-en="Dedicated access for your members"></h3>
+      <p class="b2b-model-desc" data-fr="Vos clients accèdent à Dieteye via votre structure, avec un parcours pensé à votre image." data-en="Your clients access Dieteye through your business, with an experience shaped around your brand."></p>
+    </div>
+    <div class="b2b-model-card">
+      <div class="b2b-model-num">02</div>
+      <h3 class="b2b-model-title" data-fr="Vous restez au centre de la relation" data-en="You stay at the center of the relationship"></h3>
+      <p class="b2b-model-desc" data-fr="Nous prolongeons votre accompagnement, nous ne le remplaçons pas. Vous gardez la crédibilité et le lien client." data-en="We extend your support — we don't replace it. You keep the credibility and the client relationship."></p>
+    </div>
+    <div class="b2b-model-card">
+      <div class="b2b-model-num">03</div>
+      <h3 class="b2b-model-title" data-fr="Un modèle qui s'adapte à vous" data-en="A model that adapts to you"></h3>
+      <p class="b2b-model-desc" data-fr="Licence mensuelle par membre actif, ou intégration à votre offre premium existante. On construit ça ensemble." data-en="Monthly license per active member, or integration into your existing premium offer. We build it together."></p>
+    </div>
+  </div>
+</section>
+
+<!-- ════ FONCTIONNALITÉS B2B ════ -->
+<section class="sec-b2b-features">
+  <div class="b2b-feat-head">
+    <p class="s-label" data-fr="Pour votre équipe" data-en="For your team"></p>
+    <h2 class="s-title"><span data-fr="Des outils pensés pour" data-en="Tools built for"></span> <em><span data-fr="les professionnels" data-en="professionals"></span></em></h2>
+  </div>
+  <div class="b2b-feat-grid">
+    <div class="b2b-feat-row">
+      <div class="b2b-feat-icon">📊</div>
+      <div>
+        <h3 class="b2b-feat-title" data-fr="Tableau de bord multi-clients" data-en="Multi-client dashboard"></h3>
+        <p class="b2b-feat-desc" data-fr="Suivez d'un coup d'œil l'ensemble de vos membres et leur progression nutritionnelle." data-en="See all your members and their nutritional progress at a glance."></p>
+      </div>
+    </div>
+    <div class="b2b-feat-row">
+      <div class="b2b-feat-icon">🎨</div>
+      <div>
+        <h3 class="b2b-feat-title" data-fr="Marque blanche" data-en="White-label branding"></h3>
+        <p class="b2b-feat-desc" data-fr="L'application peut porter vos couleurs et votre identité visuelle." data-en="The app can carry your colours and visual identity."></p>
+      </div>
+    </div>
+    <div class="b2b-feat-row">
+      <div class="b2b-feat-icon">👥</div>
+      <div>
+        <h3 class="b2b-feat-title" data-fr="Onboarding en masse" data-en="Bulk onboarding"></h3>
+        <p class="b2b-feat-desc" data-fr="Intégrez vos membres existants en quelques clics, sans friction." data-en="Bring your existing members onboard in a few clicks, no friction."></p>
+      </div>
+    </div>
+    <div class="b2b-feat-row">
+      <div class="b2b-feat-icon">🔌</div>
+      <div>
+        <h3 class="b2b-feat-title" data-fr="Intégration à vos outils" data-en="Integrates with your tools"></h3>
+        <p class="b2b-feat-desc" data-fr="Connectez Dieteye à votre CRM ou logiciel de gestion existant." data-en="Connect Dieteye to your existing CRM or management software."></p>
+      </div>
+    </div>
+    <div class="b2b-feat-row">
+      <div class="b2b-feat-icon">📄</div>
+      <div>
+        <h3 class="b2b-feat-title" data-fr="Rapports exportables" data-en="Exportable reports"></h3>
+        <p class="b2b-feat-desc" data-fr="Générez des rapports de suivi nutritionnel pour vos échanges avec vos clients." data-en="Generate nutritional tracking reports for your client conversations."></p>
+      </div>
+    </div>
+    <div class="b2b-feat-row">
+      <div class="b2b-feat-icon">🔒</div>
+      <div>
+        <h3 class="b2b-feat-title" data-fr="Conformité RGPD & HDS" data-en="GDPR & health data compliance"></h3>
+        <p class="b2b-feat-desc" data-fr="Hébergement conforme aux exigences françaises sur les données de santé." data-en="Hosting compliant with French health data requirements."></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ B2B END ════ -->
+<section class="sec-b2b-end">
+  <p class="end-label" data-fr="Construisons ensemble" data-en="Let's build this together"></p>
+  <h2 class="end-title"><span data-fr="Discutons de votre" data-en="Let's talk about your"></span><br><em><span data-fr="projet" data-en="project"></span></em></h2>
+  <p class="end-sub" data-fr="Nous sommes en phase de construction et cherchons des partenaires pour co-construire la meilleure version de Dieteye. Parlons-en." data-en="We're in the build phase and looking for the right partners to help shape Dieteye. Let's talk."></p>
+  <p class="end-contact"><strong>amine.cader@dieteye.eu</strong></p>
+</section>
+
+</div>
+<!-- ════ END OF B2B VIEW ════ -->
 
 <!-- ════ MENTION LÉGALE ════ -->
 <section style="background:var(--warm);padding:40px 80px;border-top:1px solid var(--sand);">
   <p style="font-size:.75rem;color:var(--ink-50);line-height:1.85;max-width:860px;margin:0 auto;text-align:center;">
-    <strong style="color:var(--ink);">⚠️ Information importante</strong><br>
-    NutriCore est un outil d'aide à la décision alimentaire à usage informatif. Il ne constitue en aucun cas un acte médical, un diagnostic, ni un avis médical ou diététique. Les suggestions générées ne remplacent pas les conseils d'un médecin, d'un diététicien-nutritionniste ou de tout autre professionnel de santé habilité. En cas de problème de santé, de symptômes persistants ou de doute sur votre état nutritionnel, consultez un professionnel de santé. Les valeurs de référence utilisées sont issues des recommandations de l'ANSES (Agence nationale de sécurité sanitaire de l'alimentation, de l'environnement et du travail).
+    <strong style="color:var(--ink);">⚠️ <span data-fr="Information importante" data-en="Important notice"></span></strong><br>
+    <span data-fr="Dieteye est un outil d'aide à la décision alimentaire à usage informatif. Il ne constitue en aucun cas un acte médical, un diagnostic, ni un avis médical ou diététique. Les suggestions générées ne remplacent pas les conseils d'un médecin, d'un diététicien-nutritionniste ou de tout autre professionnel de santé habilité. En cas de problème de santé, de symptômes persistants ou de doute sur votre état nutritionnel, consultez un professionnel de santé. Les valeurs de référence utilisées sont issues des recommandations de l'ANSES." data-en="Dieteye is an informational tool designed to support dietary decisions — not replace medical advice. It is not a diagnostic tool and does not constitute a medical or dietetic act. Always consult a qualified healthcare professional if you have health concerns, persistent symptoms or questions about your nutritional status. Reference values are based on ANSES guidelines."></span>
   </p>
 </section>
 
 <!-- ════ FOOTER ════ -->
 <footer>
-  <div class="footer-logo">Nutri<span>Core</span></div>
-  <div class="footer-copy">© 2026 NutriCore — Concept en développement · Aucune donnée médicale collectée à ce stade</div>
+  <div class="footer-logo">Diete<span>ye</span></div>
+  <div class="footer-copy" data-fr="© 2026 Dieteye — Concept en développement · Aucune donnée médicale collectée à ce stade" data-en="© 2026 Dieteye — Concept in development · No medical data collected at this stage"></div>
 </footer>
+
+<script>
+  function setLang(lang) {
+    document.documentElement.lang = lang;
+    document.querySelectorAll('[data-fr],[data-en]').forEach(el => {
+      const val = el.getAttribute('data-' + lang);
+      if (val !== null) el.textContent = val;
+    });
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.textContent.toLowerCase() === lang);
+    });
+  }
+  function setView(view) {
+    document.querySelector('.view-b2c').style.display = (view === 'b2c') ? 'block' : 'none';
+    document.querySelector('.view-b2b').style.display = (view === 'b2b') ? 'block' : 'none';
+    document.querySelectorAll('.view-btn').forEach((btn, i) => {
+      btn.classList.toggle('active', (i === 0 && view === 'b2c') || (i === 1 && view === 'b2b'));
+    });
+  }
+  // Init defaults
+  setLang('fr');
+  setView('b2c');
+</script>
 
 </body>
 </html>
